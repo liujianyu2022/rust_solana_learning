@@ -98,19 +98,19 @@ liujianyu@Ubuntu:~$ solana address
 
 liujianyu@Ubuntu:~$ solana-keygen new -o /home/liujianyu/.config/solana/id.json
   Wrote new keypair to /home/liujianyu/.config/solana/id.json
-  =====================================================================================
-  pubkey: 4QLv4fVzf95cGcm8LEjTmHpsqeU7KunZpbCFgYEaC5Lw
-  =====================================================================================
+  ==============================================================================
+  pubkey: 96NjZXgj5xx72miy6Vqaqo6KtLfnvwEiEXoaN83f8NAm
+  ==============================================================================
   Save this seed phrase and your BIP39 passphrase to recover your new keypair:
-  major devote jungle video ignore analyst surprise umbrella action prosper jump liquid
-  =====================================================================================
+  east ribbon fame guide begin kidney relax shoulder nothing step program peanut
+  ==============================================================================
 ```
 
 ### 测试钱包
 
 ```shell
 liujianyu@Ubuntu:~$ solana address
-  4QLv4fVzf95cGcm8LEjTmHpsqeU7KunZpbCFgYEaC5Lw
+  96NjZXgj5xx72miy6Vqaqo6KtLfnvwEiEXoaN83f8NAm
 
 liujianyu@Ubuntu:~$ solana balance
   0 SOL
