@@ -1,24 +1,46 @@
-use solana_program::{                           // solana_program: Solana 的 Rust SDK 提供了开发智能程序所需的核心模块。
-    account_info::{
-        next_account_info,                      // 一个辅助函数，用于从账户数组中依次获取账户信息
-        AccountInfo                             // 一个结构体，包含账户的相关信息（如余额、地址等）
-    },
-    entrypoint,                                 // 程序入口点的宏
-    entrypoint::ProgramResult,                  // 程序函数的返回类型，表示执行成功或失败
-    msg,                                        // 用于在 Solana 程序中记录日志信息。
-    pubkey::Pubkey,                             // 公钥（Pubkey）是 Solana 的基本标识符，用于标识账户、程序等
+use borsh::{BorshDeserialize, BorshSerialize};
+use solana_program::{
+    account_info::{next_account_info, AccountInfo},
+    entrypoint,
+    entrypoint::ProgramResult,
+    msg,
+    program_error::ProgramError,
+    pubkey::Pubkey,
 };
 
-entrypoint!(process_instruction);               // 定义智能程序的入口点函数
 
-fn process_instruction(
-    program_id: &Pubkey,                        // 智能程序的公钥
-    accounts: &[AccountInfo],                   // 一个包含所有相关账户信息的数组
-    instruction_data: &[u8],                    // 包含指令数据的字节数组
-) -> ProgramResult {
-    msg!("Hello, Solana!");
-    Ok(())
+#[derive(BorshSerialize, BorshDeserialize, Debug)]                                  // 定义数据账户的结构
+pub struct CounterAccount {
+    pub count: u32,
 }
 
+entrypoint!(process_instruction);                                                   // 定义程序入口点函数
 
+pub fn process_instruction(
+    program_id: &Pubkey,                                                            // 程序ID，即程序地址
+    accounts: &[AccountInfo],                                                       // 该指令涉及到的账户集合
+    _instruction_data: &[u8],                                                       // 指令数据
+) -> ProgramResult {
+    msg!("Hello World Rust program entrypoint");
 
+    let accounts_iter = &mut accounts.iter();       // 账户迭代器
+    
+    let account = next_account_info(accounts_iter)?;              // 获取调用者账户
+
+    if account.owner != program_id {                                                // 验证调用者身份
+        msg!("Counter account does not have the correct program id");
+        return Err(ProgramError::IncorrectProgramId);
+    }
+
+    // 读取并写入新值
+    let mut counter = CounterAccount::try_from_slice(&account.data.borrow())?;
+
+    msg!("previous count = {}", counter.count);
+
+    counter.count += 1;
+    counter.serialize(&mut *account.data.borrow_mut())?;
+    
+    msg!("after count = {}", counter.count);
+
+    Ok(())
+}

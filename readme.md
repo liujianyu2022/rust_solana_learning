@@ -116,6 +116,66 @@ liujianyu@Ubuntu:~$ solana balance
   0 SOL
 ```
 
+If you can't get balance because of the error as follow:
+
+```shell
+liujianyu@Ubuntu:~$ solana balance
+  Error: error sending request for url (https://api.devnet.solana.com/): error trying to connect: tcp connect error: Connection refused (os error 111)
+```
+
+It seems like that you don't set the proxy correctly. Then you can do as follow:
+
+```shell
+env | grep -i proxy
+```
+
+run this command at linux system terminal and vscode terminal respectively, and you would be able to find some differences.
+```shell
+# in linux terminal, it has set the proxy
+liujianyu@ubuntu:~$ env | grep -i proxy
+  no_proxy=localhost,127.0.0.0/8,::1
+  https_proxy=http://127.0.0.1:7890/
+  NO_PROXY=localhost,127.0.0.0/8,::1
+  HTTPS_PROXY=http://127.0.0.1:7890/
+  HTTP_PROXY=http://127.0.0.1:7890/
+  http_proxy=http://127.0.0.1:7890/
+  ALL_PROXY=socks://127.0.0.1:7891/
+  all_proxy=socks://127.0.0.1:7891/
+
+# in vscode terminal, it doesn't set proxy
+liujianyu@ubuntu:~/vscode/rust_solana_learning$ env | grep -i proxy
+liujianyu@ubuntu:~/vscode/rust_solana_learning$ 
+```
+Then you should set the proxy for vscode, just add the **'terminal.integrated.env.linux'** part into the **settings.json** 
+```json
+{
+    "git.autofetch": true,
+    "files.autoSave": "afterDelay",
+    "rust-analyzer.workspace.discoverConfig": null,
+    "terminal.integrated.env.linux": {
+        "http_proxy": "http://127.0.0.1:7890/",
+        "https_proxy": "http://127.0.0.1:7890/",
+        "all_proxy": "socks://127.0.0.1:7891/",
+        "no_proxy": "localhost,127.0.0.1,::1"
+    }
+}
+```
+
+It works now
+```shell
+# in vscode terminal, it has set the proxy
+liujianyu@ubuntu:~/vscode/rust_solana_learning$ env | grep -i proxy
+  no_proxy=localhost,127.0.0.1,::1
+  https_proxy=http://127.0.0.1:7890/
+  http_proxy=http://127.0.0.1:7890/
+  all_proxy=socks://127.0.0.1:7891/
+
+liujianyu@ubuntu:~/vscode/rust_solana_learning$ solana balance
+  4.7298624 SOL
+```
+
+
+
 ### 领取水龙头
 
 https://faucet.solana.com
@@ -129,16 +189,3 @@ liujianyu@Ubuntu:~$ solana balance
 ## 区块链浏览器
 https://explorer.solana.com/
 
-
-## ANCHOR
-
-完整的anchor.toml配置文件中可配置内容见网址：https://www.anchor-lang.com/docs/manifest
-
-```shell
-1. anchor init my-project     # 新建一个项目模板
-2. anchor build               # 编译项目
-3. anchor deploy              # 部署项目
-```
-
-修改 Anchor.toml 配置文件
-1. cluster = "Localnet"  --->
