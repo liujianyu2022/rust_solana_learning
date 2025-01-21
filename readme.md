@@ -177,8 +177,10 @@ liujianyu@ubuntu:~/vscode/rust_solana_learning$ solana balance
 
 
 ### 领取水龙头
-
-https://faucet.solana.com
+```
+https://faucet.solana.com             # for sol
+https://spl-token-faucet.com/         # for spl token
+```
 
 ```shell
 liujianyu@Ubuntu:~$ solana balance
@@ -188,4 +190,5 @@ liujianyu@Ubuntu:~$ solana balance
 
 ## 区块链浏览器
 https://explorer.solana.com/
+https://solscan.io/
 

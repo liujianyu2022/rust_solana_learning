@@ -1,5 +1,5 @@
 import { Connection, PublicKey } from "@solana/web3.js";
-import { DEVNETALCHEMY, LOCALHOST } from "../client/constants";
+import { DEVNETALCHEMY, DEVNETQUICKNODE, LOCALHOST } from "../client/constants";
 
 // PublicKey 表示账户的公钥。使用 new PublicKey() 是为了确保输入的字符串或数据被正确解析并转换为 Solana 公钥格式。
 // Solana SDK 的许多函数（如 getBalance、sendTransaction 等）需要接收一个 PublicKey 对象，而不是普通字符串。
@@ -16,7 +16,7 @@ async function main() {
 
     console.log("---------------------------------")
     
-    const connection2 = new Connection(DEVNETALCHEMY, "confirmed")
+    const connection2 = new Connection(DEVNETQUICKNODE, "confirmed")
     const balance2 = await connection2.getBalance(address)
     console.log(`Balance on devnet for account ${accountAddress}: ${balance2}`)
 

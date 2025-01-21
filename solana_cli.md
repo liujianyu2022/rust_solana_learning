@@ -12,10 +12,10 @@ solana config get
 ```
 
 最常见的更改将是针对的 Cluster。使用 solana config set --url 命令更改 RPC URL
-**Pay Attention: if you can't connect with devnet or mainnet, you should use Alchemy RPC URL!!!!**
-**Alchemy: https://dashboard.alchemy.com**
-**Infura: https://developer.metamask.io**
-It seems like that the solana rpc url doesn't exists in Infura
+**Pay Attention: if you can't connect with devnet or mainnet, you should use RPC URL!!!!**
+**QuickNode: https://dashboard.quicknode.com**
+**Alchemy: https://dashboard.alchemy.com**  It doesn't support the webscoket functionality for solana which is used to send sol 
+**Infura: https://developer.metamask.io**   It seems like that the solana rpc url doesn't exists in Infura
 ```shell
 solana config set --url localhost 
 solana config set --url devnet 
