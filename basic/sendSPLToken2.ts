@@ -3,12 +3,12 @@ import { Connection, PublicKey, Transaction, sendAndConfirmTransaction } from "@
 // @ts-ignore
 import { createTransferInstruction, getAssociatedTokenAddress, createAssociatedTokenAccountInstruction } from "@solana/spl-token"
 
-import { DEVNETQUICKNODE, USDC_DEVNET_ADDRESS } from "../client/constants.ts";
+import { DEVNET_QUICK_NODE, USDC_DEVNET_ADDRESS } from "../client/constants.ts";
 import loadKeypair from "../tools/loadKeypair.ts";
 
 const DECIMALS = 1e6
 
-const connection = new Connection(DEVNETQUICKNODE, "confirmed")
+const connection = new Connection(DEVNET_QUICK_NODE, "confirmed")
 
 const payer = loadKeypair("/home/liujianyu/.config/solana/id.json")
 const payerPublicKey = payer.publicKey

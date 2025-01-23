@@ -1,6 +1,6 @@
 import { Connection, PublicKey } from "@solana/web3.js";
 import { Buffer } from "buffer";
-import { DEVNETALCHEMY } from "../client/constants";
+import { DEVNET_ALCHEMY } from "../client/constants";
 import { Metaplex } from "@metaplex-foundation/js";
 
 
@@ -9,7 +9,7 @@ const METADATA_PROGRAM_ID = new PublicKey("metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt
 const tokenMintAddress = "So11111111111111111111111111111111111111112";                     // wrapped sol
 const tokenMint = new PublicKey(tokenMintAddress);
 
-const connection = new Connection(DEVNETALCHEMY, "confirmed");
+const connection = new Connection(DEVNET_ALCHEMY, "confirmed");
 
 async function main1() {
     try {

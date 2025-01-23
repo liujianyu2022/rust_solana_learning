@@ -174,8 +174,6 @@ liujianyu@ubuntu:~/vscode/rust_solana_learning$ solana balance
   4.7298624 SOL
 ```
 
-
-
 ### 领取水龙头
 ```
 https://faucet.solana.com             # for sol
@@ -187,8 +185,11 @@ liujianyu@Ubuntu:~$ solana balance
   5 SOL
 ```
 
-
 ## 区块链浏览器
 https://explorer.solana.com/
 https://solscan.io/
+
+
+## TEST ACCOUNT
+grocery catalog wreck million staff victory trust antique live fine yard twelve
 

@@ -9,7 +9,7 @@ import {
 } from "@solana/web3.js";
 import { serialize, deserialize } from "borsh"
 import * as fs from "fs";
-import { LOCALHOST } from "./constants";
+import { DEVNET_QUICK_NODE, LOCALHOST } from "./constants";
 
 
 // CounterAccount 对象
@@ -27,8 +27,10 @@ const CounterAccountSchema = new Map([
   [CounterAccount, { kind: "struct", fields: [["count", "u32"]] }],
 ]);
 
-const PROGRAM_ID = new PublicKey("Co3VUNzbadyHtHGSkm1N7GrdWWedu8S433tn1sYAAbpP")    // 部署在 Solana 网络上的程序的公钥
-const connection = new Connection(LOCALHOST, "confirmed");
+const PROGRAM_ID = new PublicKey("6GC9A52hqB6DNMN3CGvPJc9poaLS4uTwnp9MjRTRh4Bj")          // 部署在 Solana 网络上的程序的公钥
+const connection = new Connection(DEVNET_QUICK_NODE, "confirmed");                        // dev net
+
+
 
 // 读取本地账户的密钥对
 function loadKeypair(path: string): Keypair {
@@ -39,9 +41,9 @@ function loadKeypair(path: string): Keypair {
 const payer = loadKeypair("/home/liujianyu/.config/solana/id.json")
 
 
-const main = async () => {
+// 创建数据账户
+async function createAccount(): Promise<Keypair> {
 
-  // 创建数据账户
   const counterAccount = Keypair.generate();                                      // 生成一个新的密钥对
   const space = 4;                                                                // CounterAccount 的存储空间大小 (u32 为 4 字节)
   const lamports = await connection.getMinimumBalanceForRentExemption(space);     // 获取避免账户被清除所需的最低租金
@@ -61,7 +63,16 @@ const main = async () => {
     counterAccount,
   ]);
 
-  console.log(`Data account created: ${counterAccount.publicKey.toBase58()}`);
+  return counterAccount
+}
+
+
+const main = async () => {
+  const counterAccount = await createAccount()
+
+  // const counterAccount = {
+  //   publicKey: new PublicKey("5Kbc8gmC88aX119f4eghU9wS2Vwrhn9GRdcvdLsDVSz6")
+  // }
 
   // 构造指令
   const instruction = new TransactionInstruction({

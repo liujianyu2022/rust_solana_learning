@@ -1,10 +1,10 @@
 import { Connection, Transaction, PublicKey, sendAndConfirmTransaction, TransactionInstruction } from '@solana/web3.js'
 
-import { DEVNETQUICKNODE, SPL_TOKEN_ASSOCIATED_PROGRAM_ID, SPL_TOKEN_PROGRAM_ID, USDC_DEVNET_ADDRESS } from '../client/constants';
+import { DEVNET_QUICK_NODE, SPL_TOKEN_ASSOCIATED_PROGRAM_ID, SPL_TOKEN_PROGRAM_ID, USDC_DEVNET_ADDRESS } from '../client/constants';
 import loadKeypair from '../tools/loadKeypair';
 
 // Solana Devnet 连接
-const connection = new Connection(DEVNETQUICKNODE, 'confirmed');
+const connection = new Connection(DEVNET_QUICK_NODE, 'confirmed');
 
 const payer = loadKeypair("/home/liujianyu/.config/solana/id.json")
 const payerPublicKey = payer.publicKey
@@ -16,7 +16,6 @@ const PROGRAM_ID = new PublicKey(SPL_TOKEN_PROGRAM_ID)
 const ASSOCIATED_PROGRAM_ID = new PublicKey(SPL_TOKEN_ASSOCIATED_PROGRAM_ID)
 
 const DECIMALS = 1e6
-
 
 // 在 Solana 的 SPL Token 标准中，代币不是直接存储在用户的主账户（也称为 Solana 钱包地址）中，而是存储在专门的代币账户中。
 // getAssociatedTokenAddress 是用来计算用户对于某种特定 SPL Token 的关联账户地址的工具函数。
